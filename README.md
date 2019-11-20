@@ -32,8 +32,8 @@ callarestJson({
 
 ### JSON
 ```javascript
-const callarest = require('callarest')
-callarest.json({
+const callarestJson = require('callarest/json)
+callarestJson({
   method: 'post',
   data: { hello: 'world' },
   url: 'https://www.example.com'
