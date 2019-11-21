@@ -12,7 +12,7 @@
   "description": "An http request library for node",
   "main": "index.js",
   "scripts": {
-    "test": "tape test/*-test.js"
+    "test": "c8 -o /tmp node test"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "righto": "^6.0.1"
   },
   "dependencies": {
+    "c8": "^6.0.1",
     "error-with-object": "^1.1.0"
   }
 }

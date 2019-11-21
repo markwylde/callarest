@@ -15,13 +15,13 @@ test('get -> success', t => {
   request(function (error, result) {
     t.notOk(error);
     t.ok(result);
-    t.deepEqual(result.body, {success: true});
+    t.deepEqual(result.body, { success: true });
 
     destroyServer();
   });
 });
 
-test('get -> failure', t => {
+test('get -> net failure', t => {
   t.plan(3);
 
   const server = righto(createJsonServer);
@@ -38,6 +38,22 @@ test('get -> failure', t => {
   });
 });
 
+test('get -> json parsing failure', t => {
+  t.plan(2);
+
+  const server = righto(createJsonServer, '{a:1, b');
+  const request = righto(callarestJson, {
+    url: 'http://localhost:8000'
+  }, righto.after(server));
+
+  request(function (error, result) {
+    t.equal(error.code, 'RESPONSE_NOT_VALID_JSON');
+    t.notOk(result);
+
+    destroyServer();
+  });
+});
+
 test('post -> success', t => {
   t.plan(3);
 
@@ -45,7 +61,7 @@ test('post -> success', t => {
   const request = righto(callarestJson, {
     method: 'post',
     url: 'http://localhost:8000/echo',
-    data: {b: 1}
+    data: { b: 1 }
   }, righto.after(server));
 
   request(function (error, result) {
@@ -68,6 +84,7 @@ test('post -> send object as data', t => {
   }, righto.after(server));
 
   request(function (error, result) {
+    if (error) { console.log(error); }
     t.deepEqual(result.body, { a: 'you said', b: '"something"' });
 
     destroyServer();

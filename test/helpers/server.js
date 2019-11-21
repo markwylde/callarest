@@ -24,7 +24,11 @@ function createServer (callback) {
   callback(null, server);
 }
 
-function createJsonServer (callback) {
+function createJsonServer (data, callback) {
+  if (arguments.length === 1) {
+    callback = data;
+    data = undefined;
+  }
   server = http.createServer((request, response) => {
     if (request.url === '/echo' && request.method === 'POST') {
       parseBody(request, (error, body) => {
@@ -34,7 +38,7 @@ function createJsonServer (callback) {
         response.writeHead(200, {
           'Content-Type': 'application/json'
         });
-        response.end(JSON.stringify({
+        response.end(data || JSON.stringify({
           a: 'you said',
           b: body
         }));
@@ -43,7 +47,7 @@ function createJsonServer (callback) {
       response.writeHead(200, {
         'Content-Type': 'application/json'
       });
-      response.end(JSON.stringify({success: true}));
+      response.end(data || JSON.stringify({ success: true }));
     }
   }).listen(8000);
   callback(null, server);

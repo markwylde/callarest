@@ -4,6 +4,18 @@ const righto = require('righto');
 const { createServer, destroyServer } = require('./helpers/server');
 const callarest = require('../');
 
+test('get [https] -> success', t => {
+  t.plan(1);
+
+  const request = righto(callarest, {
+    url: 'https://localhost:8000'
+  });
+
+  request(function (error, result) {
+    t.equal(error.code, 'ECONNREFUSED');
+  });
+});
+
 test('get -> success', t => {
   t.plan(3);
 
