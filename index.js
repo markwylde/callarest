@@ -27,17 +27,16 @@ function callarest (options, callback) {
     ...options
   };
 
-  const chunks = [];
+  let chunks = Buffer.from([]);
   const request = httpOrHttps.request(opts, (response) => {
-    response.setEncoding(options.encoding || 'utf8');
     response.on('data', (chunk) => {
-      chunks.push(chunk);
+      chunks = Buffer.concat([chunks, chunk]);
     });
     response.on('end', () => {
       callback(null, {
         request,
         response,
-        body: chunks.join()
+        body: chunks.toString(options.encoding || 'utf8')
       });
     });
   });
