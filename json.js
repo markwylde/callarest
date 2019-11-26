@@ -22,7 +22,7 @@ function callarestJson (options, callback) {
     }
 
     try {
-      rest.body = JSON.parse(rest.body);
+      rest.body = rest.body !== '' ? JSON.parse(rest.body) : undefined;
     } catch (error) {
       return callback(new ErrorWithObject({
         code: 'RESPONSE_NOT_VALID_JSON',

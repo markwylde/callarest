@@ -21,6 +21,23 @@ test('get -> success', t => {
   });
 });
 
+test('get -> success if undefined body returned', t => {
+  t.plan(3);
+
+  const server = righto(createJsonServer, '');
+  const request = righto(callarestJson, {
+    url: 'http://localhost:8000'
+  }, righto.after(server));
+
+  request(function (error, result) {
+    t.notOk(error);
+    t.ok(result);
+    t.deepEqual(result.body, undefined);
+
+    destroyServer();
+  });
+});
+
 test('get -> net failure', t => {
   t.plan(3);
 
