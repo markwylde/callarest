@@ -38,16 +38,18 @@ function createJsonServer (data, callback) {
         response.writeHead(200, {
           'Content-Type': 'application/json'
         });
-        response.end(data || JSON.stringify({
+        const dataToSend = data != null ? data : JSON.stringify({
           a: 'you said',
           b: body
-        }));
+        });
+        response.end(dataToSend);
       });
     } else {
       response.writeHead(200, {
         'Content-Type': 'application/json'
       });
-      response.end(data || JSON.stringify({ success: true }));
+      const dataToSend = data != null ? data : JSON.stringify({ success: true });
+      response.end(dataToSend);
     }
   }).listen(8000);
   callback(null, server);

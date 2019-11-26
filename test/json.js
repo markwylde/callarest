@@ -32,7 +32,7 @@ test('get -> success if undefined body returned', t => {
   request(function (error, result) {
     t.notOk(error);
     t.ok(result);
-    t.deepEqual(result.body, { success: true });
+    t.deepEqual(result.body, undefined);
 
     destroyServer();
   });
