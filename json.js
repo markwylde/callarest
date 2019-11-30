@@ -27,7 +27,7 @@ function callarestJson (options, callback) {
       return callback(new ErrorWithObject({
         code: 'RESPONSE_NOT_VALID_JSON',
         message: 'The response body could not be JSON.parsed',
-        body: rest.body
+        ...rest
       }));
     }
 
