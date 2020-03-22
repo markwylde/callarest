@@ -7,15 +7,15 @@ function callarestJson (options, callback) {
     ...(options.headers || {})
   };
 
-  let data;
-  if (options.data != null) {
-    data = JSON.stringify(options.data);
+  let body;
+  if (options.body != null) {
+    body = JSON.stringify(options.body);
   }
 
   callarest({
     ...options,
     headers,
-    data
+    body
   }, function (error, rest) {
     if (error) {
       return callback(error);

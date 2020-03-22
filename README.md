@@ -13,7 +13,7 @@ A simple tool to natively make http(s) requests in node
 const callarest = require('callarest')
 callarest({
   method: 'post',
-  data: JSON.stringify({ hello: 'world' }),
+  body: JSON.stringify({ hello: 'world' }),
   headers: {
     'Content-Type': 'application/json'
   },
@@ -35,7 +35,7 @@ callarest({
 const callarestJson = require('callarest/json)
 callarestJson({
   method: 'post',
-  data: { hello: 'world' },
+  body: { hello: 'world' },
   url: 'https://www.example.com'
 }, function (error, rest) {
   if (error) {

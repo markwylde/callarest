@@ -57,7 +57,7 @@ test('post -> success', t => {
   const request = righto(callarest, {
     method: 'post',
     url: 'http://localhost:8000/echo',
-    data: 'hello'
+    body: 'hello'
   }, righto.after(server));
 
   request(function (error, result) {
@@ -69,20 +69,20 @@ test('post -> success', t => {
   });
 });
 
-test('post -> send object as data', t => {
+test('post -> send object as body', t => {
   t.plan(1);
 
   const server = righto(createServer);
   const request = righto(callarest, {
     method: 'post',
     url: 'http://localhost:8000/echo',
-    data: {
+    body: {
       a: 1
     }
   }, righto.after(server));
 
   request(function (error, result) {
-    t.equal(error.code, 'SENT_OBJECT_AS_DATA');
+    t.equal(error.code, 'SENT_OBJECT_AS_BODY');
 
     destroyServer();
   });

@@ -1,6 +1,6 @@
 {
   "name": "callarest",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "keywords": [
     "rest",
     "ajax",
@@ -25,11 +25,11 @@
   },
   "homepage": "https://github.com/markwylde/callarest#readme",
   "devDependencies": {
-    "tape": "^4.11.0",
+    "c8": "^6.0.1",
+    "tape": "^4.13.2",
     "righto": "^6.0.1"
   },
   "dependencies": {
-    "c8": "^6.0.1",
     "error-with-object": "^1.1.0"
   }
 }
