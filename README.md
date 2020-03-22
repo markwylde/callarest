@@ -10,8 +10,8 @@ A simple tool to natively make http(s) requests in node
 ## Example Usage
 ### Verbose
 ```javascript
-const callarestJson = require('callarest/json')
-callarestJson({
+const callarest = require('callarest')
+callarest({
   method: 'post',
   data: JSON.stringify({ hello: 'world' }),
   headers: {
