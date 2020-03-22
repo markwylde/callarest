@@ -6,14 +6,14 @@ function callarest (options, callback) {
   const uri = new URL(options.url);
 
   const headers = options.headers || {};
-  if (options.data != null) {
-    if (typeof options.data !== 'string') {
+  if (options.body != null) {
+    if (typeof options.body !== 'string') {
       return callback(new ErrorWithObject({
-        message: 'You did not set the data property to an String. Did you mean to JSON.stringify an object it or use the callarest.json shortcut?',
-        code: 'SENT_OBJECT_AS_DATA'
+        message: 'You did not set the body property to an String. Did you mean to JSON.stringify an object it or use the callarest.json shortcut?',
+        code: 'SENT_OBJECT_AS_BODY'
       }));
     }
-    headers['Content-Length'] = Buffer.byteLength(options.data);
+    headers['Content-Length'] = Buffer.byteLength(options.body);
   }
 
   const httpOrHttps = uri.protocol === 'https:' ? https : http;
@@ -49,8 +49,8 @@ function callarest (options, callback) {
     }));
   });
 
-  if (options.data) {
-    request.write(options.data);
+  if (options.body) {
+    request.write(options.body);
   }
   request.end();
 }

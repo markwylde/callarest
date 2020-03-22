@@ -78,7 +78,7 @@ test('post -> success', t => {
   const request = righto(callarestJson, {
     method: 'post',
     url: 'http://localhost:8000/echo',
-    data: { b: 1 }
+    body: { b: 1 }
   }, righto.after(server));
 
   request(function (error, result) {
@@ -90,14 +90,14 @@ test('post -> success', t => {
   });
 });
 
-test('post -> send object as data', t => {
+test('post -> send object as body', t => {
   t.plan(1);
 
   const server = righto(createJsonServer);
   const request = righto(callarestJson, {
     method: 'post',
     url: 'http://localhost:8000/echo',
-    data: 'something'
+    body: 'something'
   }, righto.after(server));
 
   request(function (error, result) {
