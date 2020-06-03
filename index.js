@@ -16,7 +16,7 @@ function callarest (options, callback) {
     headers['Content-Length'] = Buffer.byteLength(options.body);
   }
 
-  const httpOrHttps = uri.protocol === 'https:' ? https : http;
+  const httpOrHttps = uri.protocol === 'https:' ? options.httpsAgent || https : options.httpAgent || http;
   const opts = {
     headers,
     method: 'GET',
