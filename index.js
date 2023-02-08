@@ -1,17 +1,19 @@
-const http = require('http');
-const https = require('https');
-const ErrorWithObject = require('error-with-object');
+import http from 'http';
+import https from 'https';
 
-function callarest (options, callback) {
+export * as callarestJson from './json.js';
+
+export function callarest (options, callback) {
   const uri = new URL(options.url);
 
   const headers = options.headers || {};
   if (options.body != null) {
     if (typeof options.body !== 'string') {
-      return callback(new ErrorWithObject({
-        message: 'You did not set the body property to an String. Did you mean to JSON.stringify an object it or use the callarest.json shortcut?',
-        code: 'SENT_OBJECT_AS_BODY'
-      }));
+      return callback(Object.assign(
+        new Error('callarest: You did not set the body property to an String. Did you mean to JSON.stringify an object it or use the callarest.json shortcut?'),
+        {
+          code: 'SENT_OBJECT_AS_BODY'
+        }));
     }
     headers['Content-Length'] = Buffer.byteLength(options.body);
   }
@@ -42,11 +44,12 @@ function callarest (options, callback) {
   });
 
   request.on('error', (error) => {
-    callback(new ErrorWithObject({
-      code: 'REQUEST_ERROR',
-      ...error,
-      request
-    }));
+    callback(Object.assign(
+      new Error('callarest: request error'), {
+        code: 'REQUEST_ERROR',
+        ...error,
+        request
+      }));
   });
 
   if (options.body) {
@@ -55,4 +58,4 @@ function callarest (options, callback) {
   request.end();
 }
 
-module.exports = callarest;
+export default callarest;

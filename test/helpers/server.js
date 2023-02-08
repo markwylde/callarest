@@ -1,8 +1,8 @@
-const http = require('http');
-const parseBody = require('./parseBody');
+import http from 'http';
+import parseBody from './parseBody.js';
 let server;
 
-function createServer (callback) {
+export function createServer (callback) {
   server = http.createServer((request, response) => {
     if (request.url === '/echo' && request.method === 'POST') {
       parseBody(request, (error, body) => {
@@ -24,7 +24,7 @@ function createServer (callback) {
   callback(null, server);
 }
 
-function createJsonServer (data, callback) {
+export function createJsonServer (data, callback) {
   if (arguments.length === 1) {
     callback = data;
     data = undefined;
@@ -38,10 +38,12 @@ function createJsonServer (data, callback) {
         response.writeHead(200, {
           'Content-Type': 'application/json'
         });
-        const dataToSend = data != null ? data : JSON.stringify({
-          a: 'you said',
-          b: body
-        });
+        const dataToSend = data != null
+          ? data
+          : JSON.stringify({
+            a: 'you said',
+            b: body
+          });
         response.end(dataToSend);
       });
     } else {
@@ -55,12 +57,6 @@ function createJsonServer (data, callback) {
   callback(null, server);
 }
 
-function destroyServer () {
+export function destroyServer () {
   server.close();
 }
-
-module.exports = {
-  createServer,
-  createJsonServer,
-  destroyServer
-};
