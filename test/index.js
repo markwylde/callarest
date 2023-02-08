@@ -1,2 +1,2 @@
-require('./raw');
-require('./json');
+import './raw.js';
+import './json.js';

@@ -1,8 +1,8 @@
-const test = require('tape');
-const righto = require('righto');
+import test from 'basictap';
+import righto from 'righto';
 
-const { createServer, destroyServer } = require('./helpers/server');
-const callarest = require('../');
+import { createServer, destroyServer } from './helpers/server.js';
+import callarest from '../index.js';
 
 test('get [https] -> success', t => {
   t.plan(1);
@@ -11,7 +11,7 @@ test('get [https] -> success', t => {
     url: 'https://localhost:8000'
   });
 
-  request(function (error, result) {
+  request(function (error) {
     t.equal(error.code, 'ECONNREFUSED');
   });
 });
@@ -42,7 +42,7 @@ test('get -> failure', t => {
   }, righto.after(server));
 
   request(function (error, result) {
-    t.equal(error.code, 'ENOTFOUND');
+    t.equal(error.code, 'EAI_AGAIN');
     t.ok(error.request);
     t.notOk(result);
 
@@ -81,7 +81,7 @@ test('post -> send object as body', t => {
     }
   }, righto.after(server));
 
-  request(function (error, result) {
+  request(function (error) {
     t.equal(error.code, 'SENT_OBJECT_AS_BODY');
 
     destroyServer();

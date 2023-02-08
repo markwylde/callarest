@@ -1,5 +1,4 @@
-const ErrorWithObject = require('error-with-object');
-const callarest = require('./');
+import callarest from './index.js';
 
 function callarestJson (options, callback) {
   const headers = {
@@ -24,15 +23,17 @@ function callarestJson (options, callback) {
     try {
       rest.body = rest.body !== '' ? JSON.parse(rest.body) : undefined;
     } catch (error) {
-      return callback(new ErrorWithObject({
-        code: 'RESPONSE_NOT_VALID_JSON',
-        message: 'The response body could not be JSON.parsed',
-        ...rest
-      }));
+      return callback(Object.assign(
+        new Error('The response body could not be JSON.parsed'),
+        {
+          code: 'RESPONSE_NOT_VALID_JSON',
+          ...rest
+        }
+      ));
     }
 
     callback(null, rest);
   });
 }
 
-module.exports = callarestJson;
+export default callarestJson;

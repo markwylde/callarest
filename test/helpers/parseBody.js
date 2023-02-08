@@ -1,5 +1,3 @@
-const ErrorWithObject = require('error-with-object');
-
 function parseBody (request, callback) {
   let body = [];
 
@@ -15,7 +13,16 @@ function parseBody (request, callback) {
         try {
           return callback(null, body);
         } catch (error) {
-          return callback(new ErrorWithObject({ code: 400, error, body }));
+          const newError = Object.assign(
+            new Error('callarest: could not parseBody'),
+            {
+              code: 400,
+              error,
+              body
+            }
+          );
+          callback(newError);
+          return;
         }
       }
 
@@ -26,4 +33,4 @@ function parseBody (request, callback) {
     });
 }
 
-module.exports = parseBody;
+export default parseBody;

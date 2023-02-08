@@ -1,6 +1,7 @@
 {
   "name": "callarest",
   "version": "2.0.2",
+  "type": "module",
   "keywords": [
     "rest",
     "ajax",
@@ -12,24 +13,26 @@
   "description": "An http request library for node",
   "main": "index.js",
   "scripts": {
-    "test": "c8 -o /tmp node test"
+    "test": "c8 -o /tmp node test",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/markwylde/callarest.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Mark Wylde <me@markwylde.com> (https://github.com/markwylde)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/markwylde/callarest/issues"
   },
   "homepage": "https://github.com/markwylde/callarest#readme",
   "devDependencies": {
+    "basictap": "^4.0.2",
     "c8": "^7.2.1",
-    "righto": "^6.1.3",
-    "tape": "^5.0.1"
+    "righto": "^6.1.3"
   },
   "dependencies": {
-    "error-with-object": "^1.1.0"
+    "eslint": "^8.33.0",
+    "eslint-config-standard": "^17.0.0"
   }
 }

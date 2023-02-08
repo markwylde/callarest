@@ -1,8 +1,8 @@
-const test = require('tape');
-const righto = require('righto');
+import test from 'basictap';
+import righto from 'righto';
 
-const { createJsonServer, destroyServer } = require('./helpers/server');
-const callarestJson = require('../json');
+import { createJsonServer, destroyServer } from './helpers/server.js';
+import callarestJson from '../json.js';
 
 test('get -> success', t => {
   t.plan(3);
@@ -47,7 +47,7 @@ test('get -> net failure', t => {
   }, righto.after(server));
 
   request(function (error, result) {
-    t.equal(error.code, 'ENOTFOUND');
+    t.equal(error.code, 'EAI_AGAIN');
     t.ok(error.request);
     t.notOk(result);
 
@@ -84,7 +84,10 @@ test('post -> success', t => {
   request(function (error, result) {
     t.notOk(error);
     t.ok(result);
-    t.deepEqual(result.body, { a: 'you said', b: '{"b":1}' });
+    t.deepEqual(result.body, {
+      a: 'you said',
+      b: '{"b":1}'
+    });
 
     destroyServer();
   });
@@ -102,7 +105,10 @@ test('post -> send object as body', t => {
 
   request(function (error, result) {
     if (error) { console.log(error); }
-    t.deepEqual(result.body, { a: 'you said', b: '"something"' });
+    t.deepEqual(result.body, {
+      a: 'you said',
+      b: '"something"'
+    });
 
     destroyServer();
   });
